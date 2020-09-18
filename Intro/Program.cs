@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace Intro
 {
@@ -19,7 +21,8 @@ namespace Intro
             {
                 // Начать задержку.
                 Task task = WaitAsync();
-                // Синхронное блокирование с ожиданием завершения async­метода. task.Wait();
+                // Синхронное блокирование с ожиданием завершения async-метода. task.Wait();
+                task.Wait();
             }
             
             async Task DoSomethingAsync()
@@ -40,7 +43,13 @@ namespace Intro
             }
 
             // DoSomethingAsync();
-            Deadlock();
+            // Deadlock();
+            Observable.Interval(TimeSpan.FromSeconds(1))
+                .Timestamp()
+                .Where(x => x.Value % 2 == 0)
+                .Select(x => x.Timestamp)
+                .Subscribe(x => Trace.WriteLine(x));
+            
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         }

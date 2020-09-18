@@ -5,4 +5,9 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.Reactive" Version="4.4.1" />
+      <PackageReference Include="System.Reactive.Linq" Version="4.4.1" />
+    </ItemGroup>
+
 </Project>
